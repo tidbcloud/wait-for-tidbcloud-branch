@@ -24,8 +24,6 @@ The action supports the following inputs:
 - intervalSeconds - (optional) The interval seconds to check the status of TiDB Cloud Branch check. Default is 10.
 - timeoutSeconds - (optional) The timeout seconds to wait for TiDB Cloud Branch check. Default is 300.
 - addMask - (optional) Whether to add mask for the password output. Default is true.
-- env - (optional) The TiDB Cloud environment. Available values: dev, staging, prod.
-
 
 ## Outputs
 
@@ -89,6 +87,7 @@ jobs:
         run: |
           echo "The host is ${{ needs.setup.outputs.host }}"
           echo "The username is ${{ needs.setup.outputs.username }}"
+          echo '::add-mask::${{ needs.setup.outputs.password }}'
           echo "The password is ${{ needs.setup.outputs.password }}"       
 ```
 

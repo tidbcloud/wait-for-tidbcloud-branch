@@ -4,8 +4,19 @@ import {poll} from './poll'
 import {sqluser} from './sqluser'
 
 async function run(): Promise<void> {
+  const token = core.getInput('token', {required: true})
+  const publicKey = core.getInput('publicKey', {required: true})
+  const privateKey = core.getInput('privateKey', {required: true})
+  if (token === '' || token === undefined) {
+    throw new Error('token is empty')
+  }
+  if (publicKey === '' || publicKey === undefined) {
+    throw new Error('token is empty')
+  }
+  if (privateKey === '' || privateKey === undefined) {
+    throw new Error('token is empty')
+  }
   try {
-    const token = core.getInput('token', {required: true})
     if (context.payload.pull_request === undefined) {
       throw new Error('This action only works on pull_request events now')
     }
@@ -36,8 +47,8 @@ async function run(): Promise<void> {
     const sqlUser = await sqluser(
       result.externalID,
       msg => core.info(msg),
-      core.getInput('publicKey', {required: true}),
-      core.getInput('privateKey', {required: true}),
+      publicKey,
+      privateKey,
       core.getInput('env')
     )
     if (core.getInput('addMask') === 'true') {

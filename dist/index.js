@@ -41,8 +41,19 @@ const poll_1 = __nccwpck_require__(5498);
 const sqluser_1 = __nccwpck_require__(5471);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
+        const token = core.getInput('token', { required: true });
+        const publicKey = core.getInput('publicKey', { required: true });
+        const privateKey = core.getInput('privateKey', { required: true });
+        if (token === '' || token === undefined) {
+            throw new Error('token is empty');
+        }
+        if (publicKey === '' || publicKey === undefined) {
+            throw new Error('token is empty');
+        }
+        if (privateKey === '' || privateKey === undefined) {
+            throw new Error('token is empty');
+        }
         try {
-            const token = core.getInput('token', { required: true });
             if (github_1.context.payload.pull_request === undefined) {
                 throw new Error('This action only works on pull_request events now');
             }
@@ -66,7 +77,7 @@ function run() {
             if (result.externalID === null || result.externalID === '') {
                 throw new Error('externalID is empty with success conclusion');
             }
-            const sqlUser = yield (0, sqluser_1.sqluser)(result.externalID, msg => core.info(msg), core.getInput('publicKey', { required: true }), core.getInput('privateKey', { required: true }), core.getInput('env'));
+            const sqlUser = yield (0, sqluser_1.sqluser)(result.externalID, msg => core.info(msg), publicKey, privateKey, core.getInput('env'));
             if (core.getInput('addMask') === 'true') {
                 core.info('addMask is true, set secret for sql user password');
                 core.setSecret(sqlUser.password);

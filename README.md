@@ -2,7 +2,7 @@
 
 A JavaScript action that works with [TiDB Cloud App](https://github.com/apps/tidb-cloud). It allows you to:
 
-- Wait for TiDB Cloud Branch check which created by TiDB Cloud App to complete.
+- Wait for the `TiDB Cloud Branch` check which created by TiDB Cloud App to complete.
 - Generate a SQL user for this TiDB Cloud branch.
 
 ## Usage

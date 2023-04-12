@@ -1,0 +1,26 @@
+name: 'verify'
+on: # rebuild any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+
+jobs:
+  build: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3.5.1
+        with:
+          node-version: 16.x
+      - run: npm ci
+      - run: npm run all
+      - run: |
+          npm run lint  --  --fix
+          if [ "$(git diff | wc -l)" -gt "0" ]; then
+            echo "Detected uncommitted changes.  See status below:"
+            git diff
+            exit 1
+          fi

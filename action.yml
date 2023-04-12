@@ -1,0 +1,32 @@
+name: 'Wait For TiDBCloud Branch'
+description: 'Wait for TiDBCloud branch to be ready. Only used on pull request'
+author: 'TiDBCloud ecosystem team'
+branding:
+  icon: 'check-circle'
+  color: 'green'
+inputs:
+  token:
+    description: 'The GitHub token to use for making API requests.'
+    required: true
+  timeoutSeconds:
+    description: 'The number of seconds to wait for the branch ready.'
+    default: '300'
+  intervalSeconds:
+    description: 'The number of seconds to wait before each check.'
+    default: '10'
+  publicKey:
+    description: 'The public key of TiDB Cloud API.'
+    required: true
+  privateKey:
+    description: 'The private key of TiDB Cloud API.'
+    required: true
+  addMask:
+    description: 'Whether to add mask for the output.'
+    default: 'true'
+  env:
+    description: 'The environment. Available values: dev, staging, prod.'
+    default: 'prod'
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

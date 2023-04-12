@@ -36,8 +36,8 @@ async function run(): Promise<void> {
     const sqlUser = await sqluser(
       result.externalID,
       msg => core.info(msg),
-      core.getInput('publicKey'),
-      core.getInput('privateKey'),
+      core.getInput('publicKey', {required: true}),
+      core.getInput('privateKey', {required: true}),
       core.getInput('env')
     )
     if (core.getInput('addMask') === 'true') {

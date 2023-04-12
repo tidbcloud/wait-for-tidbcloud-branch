@@ -44,14 +44,15 @@ function run() {
         const token = core.getInput('token', { required: true });
         const publicKey = core.getInput('publicKey', { required: true });
         const privateKey = core.getInput('privateKey', { required: true });
+        // defensive programming
         if (token === '' || token === undefined) {
             throw new Error('token is empty');
         }
         if (publicKey === '' || publicKey === undefined) {
-            throw new Error('token is empty');
+            throw new Error('publicKey is empty');
         }
         if (privateKey === '' || privateKey === undefined) {
-            throw new Error('token is empty');
+            throw new Error('privateKey is empty');
         }
         try {
             if (github_1.context.payload.pull_request === undefined) {

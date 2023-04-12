@@ -8,7 +8,7 @@ A JavaScript action that works with [TiDB Cloud App](https://github.com/apps/tid
 ## Usage
 
 ```
-uses: shiyuhang0/wait-for-tidbcloud-branch@v0
+uses: tidbcloud/wait-for-tidbcloud-branch@v0
 with:
   token: ${{ secrets.GITHUB_TOKEN }}
   publicKey: ${{ secrets.TIDB_CLOUD_API_PUBLIC_KEY }}
@@ -24,13 +24,15 @@ The action supports the following inputs:
 - intervalSeconds - (optional) The interval seconds to check the status of TiDB Cloud Branch check. Default is 10.
 - timeoutSeconds - (optional) The timeout seconds to wait for TiDB Cloud Branch check. Default is 300.
 - addMask - (optional) Whether to add mask for the password output. Default is true.
+- env - (optional) The TiDB Cloud environment. Available values: dev, staging, prod.
+
 
 ## Outputs
 
 The action provide the following outputs:
 
 - host - The host of the TiDB Cloud branch.
-- user - The user of the TiDB Cloud branch.
+- username - The username of the TiDB Cloud branch.
 - password - The password of the TiDB Cloud branch.
 
 ## Best practices
@@ -42,7 +44,7 @@ Here is an example of how to use this action in a single job:
 ```
 steps:
   - name: Wait for TiDB Cloud branch ready
-    uses: shiyuhang0/wait-for-tidbcloud-branch@v0
+    uses: tidbcloud/wait-for-tidbcloud-branch@v0
     id: wait-for-branch
     with:
       token: ${{ secrets.GITHUB_TOKEN }}
@@ -52,7 +54,7 @@ steps:
   - name: Use the output
      run: |
         echo "The host is ${{ steps.wait-for-branch.outputs.host }}"
-        echo "The user is ${{ steps.wait-for-branch.outputs.user }}"
+        echo "The username is ${{ steps.wait-for-branch.outputs.username }}"
         echo "The password is ${{ steps.wait-for-branch.outputs.password }}"
 ```
 
@@ -67,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: shiyuhang0/wait-for-tidbcloud-branch@v0
+      - uses: tidbcloud/wait-for-tidbcloud-branch@v0
         id: wait-for-branch
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -75,7 +77,7 @@ jobs:
           privateKey: ${{ secrets.TIDB_CLOUD_API_PRIVATE_KEY }}
           addMask: false
     outputs:
-      user: ${{ steps.wait-for-branch.outputs.user }}
+      username: ${{ steps.wait-for-branch.outputs.username }}
       host: ${{ steps.wait-for-branch.outputs.host }}
       password: ${{ steps.wait-for-branch.outputs.password }}
 
@@ -86,7 +88,7 @@ jobs:
       - name: Use the output
         run: |
           echo "The host is ${{ needs.setup.outputs.host }}"
-          echo "The user is ${{ needs.setup.outputs.user }}"
+          echo "The username is ${{ needs.setup.outputs.username }}"
           echo "The password is ${{ needs.setup.outputs.password }}"       
 ```
 

@@ -24,7 +24,7 @@ inputs:
     description: 'Whether to add mask for the output.'
     default: 'true'
   env:
-    description: 'The environment. Available values: dev, staging, prod.'
+    description: 'The TiDB Cloud environment. Available values: dev, staging, prod.'
     default: 'prod'
 
 runs:

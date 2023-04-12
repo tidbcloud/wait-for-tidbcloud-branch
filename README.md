@@ -32,7 +32,7 @@ The action supports the following inputs:
 The action provide the following outputs:
 
 - host - The host of the TiDB Cloud branch.
-- user - The user of the TiDB Cloud branch.
+- username - The username of the TiDB Cloud branch.
 - password - The password of the TiDB Cloud branch.
 
 ## Best practices
@@ -54,7 +54,7 @@ steps:
   - name: Use the output
      run: |
         echo "The host is ${{ steps.wait-for-branch.outputs.host }}"
-        echo "The user is ${{ steps.wait-for-branch.outputs.user }}"
+        echo "The username is ${{ steps.wait-for-branch.outputs.username }}"
         echo "The password is ${{ steps.wait-for-branch.outputs.password }}"
 ```
 
@@ -77,7 +77,7 @@ jobs:
           privateKey: ${{ secrets.TIDB_CLOUD_API_PRIVATE_KEY }}
           addMask: false
     outputs:
-      user: ${{ steps.wait-for-branch.outputs.user }}
+      username: ${{ steps.wait-for-branch.outputs.username }}
       host: ${{ steps.wait-for-branch.outputs.host }}
       password: ${{ steps.wait-for-branch.outputs.password }}
 
@@ -88,7 +88,7 @@ jobs:
       - name: Use the output
         run: |
           echo "The host is ${{ needs.setup.outputs.host }}"
-          echo "The user is ${{ needs.setup.outputs.user }}"
+          echo "The username is ${{ needs.setup.outputs.username }}"
           echo "The password is ${{ needs.setup.outputs.password }}"       
 ```
 

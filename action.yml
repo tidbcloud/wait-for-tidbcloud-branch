@@ -14,10 +14,10 @@ inputs:
   intervalSeconds:
     description: 'The number of seconds to wait before each check.'
     default: '10'
-  publicKey:
+  public-key:
     description: 'The public key of TiDB Cloud API.'
     required: true
-  privateKey:
+  private-key:
     description: 'The private key of TiDB Cloud API.'
     required: true
   addMask:

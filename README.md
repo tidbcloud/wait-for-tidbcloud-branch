@@ -11,8 +11,8 @@ A JavaScript action that works with [TiDB Cloud App](https://github.com/apps/tid
 uses: tidbcloud/wait-for-tidbcloud-branch@v0
 with:
   token: ${{ secrets.GITHUB_TOKEN }}
-  publicKey: ${{ secrets.TIDB_CLOUD_API_PUBLIC_KEY }}
-  privateKey: ${{ secrets.TIDB_CLOUD_API_PRIVATE_KEY }}
+  public-key: ${{ secrets.TIDB_CLOUD_API_PUBLIC_KEY }}
+  private-key: ${{ secrets.TIDB_CLOUD_API_PRIVATE_KEY }}
 ```
 
 ## Inputs
@@ -46,8 +46,8 @@ steps:
     id: wait-for-branch
     with:
       token: ${{ secrets.GITHUB_TOKEN }}
-      publicKey: ${{ secrets.TIDB_CLOUD_API_PUBLIC_KEY }}
-      privateKey: ${{ secrets.TIDB_CLOUD_API_PRIVATE_KEY }}
+      public-key: ${{ secrets.TIDB_CLOUD_API_PUBLIC_KEY }}
+      private-key: ${{ secrets.TIDB_CLOUD_API_PRIVATE_KEY }}
 
   - name: Use the output
      run: |
@@ -71,8 +71,8 @@ jobs:
         id: wait-for-branch
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          publicKey: ${{ secrets.TIDB_CLOUD_API_PUBLIC_KEY }}
-          privateKey: ${{ secrets.TIDB_CLOUD_API_PRIVATE_KEY }}
+          public-key: ${{ secrets.TIDB_CLOUD_API_PUBLIC_KEY }}
+          private-key: ${{ secrets.TIDB_CLOUD_API_PRIVATE_KEY }}
           addMask: false
     outputs:
       username: ${{ steps.wait-for-branch.outputs.username }}

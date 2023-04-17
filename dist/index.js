@@ -42,8 +42,8 @@ const sqluser_1 = __nccwpck_require__(5471);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const token = core.getInput('token', { required: true });
-        const publicKey = core.getInput('publicKey', { required: true });
-        const privateKey = core.getInput('privateKey', { required: true });
+        const publicKey = core.getInput('public-key', { required: true });
+        const privateKey = core.getInput('private-key', { required: true });
         // defensive programming
         if (token === '' || token === undefined) {
             throw new Error('token is empty');

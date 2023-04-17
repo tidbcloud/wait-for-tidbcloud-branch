@@ -15,8 +15,8 @@ jobs:
         id: wait-for-branch
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          publicKey: ${{ secrets.TIDB_CLOUD_PUBLIC_KEY }}
-          privateKey: ${{ secrets.TIDB_CLOUD_PRIVATE_KEY }}
+          public-key: ${{ secrets.TIDB_CLOUD_PUBLIC_KEY }}
+          private-key: ${{ secrets.TIDB_CLOUD_PRIVATE_KEY }}
           addMask: false
           env: dev
       - name: Use the output

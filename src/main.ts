@@ -5,8 +5,8 @@ import {sqluser} from './sqluser'
 
 async function run(): Promise<void> {
   const token = core.getInput('token', {required: true})
-  const publicKey = core.getInput('publicKey', {required: true})
-  const privateKey = core.getInput('privateKey', {required: true})
+  const publicKey = core.getInput('public-key', {required: true})
+  const privateKey = core.getInput('private-key', {required: true})
   // defensive programming
   if (token === '' || token === undefined) {
     throw new Error('token is empty')

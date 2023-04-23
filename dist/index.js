@@ -87,6 +87,7 @@ function run() {
             core.setOutput('host', sqlUser.host);
             core.setOutput('username', sqlUser.username);
             core.setOutput('password', sqlUser.password);
+            core.setOutput('port', sqlUser.port);
         }
         catch (error) {
             if (error instanceof Error)
@@ -174,10 +175,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.sqluser = exports.SqlUser = void 0;
 const digest_fetch_1 = __importDefault(__nccwpck_require__(2461));
 class SqlUser {
-    constructor(host, user, password) {
+    constructor(host, port, user, password) {
         this.host = host;
         this.username = user;
         this.password = password;
+        this.port = port;
     }
 }
 exports.SqlUser = SqlUser;
@@ -202,15 +204,24 @@ function sqluser(externalID, log, publicKey, privateKey, env) {
         if (env === 'staging') {
             host = 'https://api.staging.tidbcloud.com';
         }
-        const url = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${branchName}/users`;
-        log(`request url to get sql user: ${url}`);
         const client = new digest_fetch_1.default(publicKey, privateKey);
-        const resp = yield client.fetch(url, { method: 'POST' });
+        // get sql user
+        const sqlUserUrl = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${branchName}/users`;
+        log(`request url to get sql user: ${sqlUserUrl}`);
+        const resp = yield client.fetch(sqlUserUrl, { method: 'POST' });
         const data = yield resp.json();
         if (data['username'] === undefined || data['password'] === undefined) {
             throw new Error(`Can not get sql user with response: ${JSON.stringify(data)}`);
         }
-        return new SqlUser('', data['username'], data['password']);
+        // get branch info
+        const branchUrl = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${branchName}`;
+        log(`request url to get host and port: ${branchUrl}`);
+        const resp2 = yield client.fetch(branchUrl);
+        const branch = yield resp2.json();
+        if (branch['host'] === undefined || branch['port'] === undefined) {
+            throw new Error(`Can not get branch host and port with: ${JSON.stringify(branch)}`);
+        }
+        return new SqlUser(branch['host'], branch['port'], data['username'], data['password']);
     });
 }
 exports.sqluser = sqluser;

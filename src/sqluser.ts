@@ -11,11 +11,13 @@ export class SqlUser {
   host: string
   username: string
   password: string
+  port: number
 
-  constructor(host: string, user: string, password: string) {
+  constructor(host: string, port: number, user: string, password: string) {
     this.host = host
     this.username = user
     this.password = password
+    this.port = port
   }
 }
 
@@ -49,16 +51,34 @@ export async function sqluser(
     host = 'https://api.staging.tidbcloud.com'
   }
 
-  const url = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${branchName}/users`
-  log(`request url to get sql user: ${url}`)
-
   const client = new DigestFetch(publicKey, privateKey)
-  const resp = await client.fetch(url, {method: 'POST'})
+
+  // get sql user
+  const sqlUserUrl = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${branchName}/users`
+  log(`request url to get sql user: ${sqlUserUrl}`)
+  const resp = await client.fetch(sqlUserUrl, {method: 'POST'})
   const data = await resp.json()
   if (data['username'] === undefined || data['password'] === undefined) {
     throw new Error(
       `Can not get sql user with response: ${JSON.stringify(data)}`
     )
   }
-  return new SqlUser('', data['username'], data['password'])
+
+  // get branch info
+  const branchUrl = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${branchName}`
+  log(`request url to get host and port: ${branchUrl}`)
+  const resp2 = await client.fetch(branchUrl)
+  const branch = await resp2.json()
+  if (branch['host'] === undefined || branch['port'] === undefined) {
+    throw new Error(
+      `Can not get branch host and port with: ${JSON.stringify(branch)}`
+    )
+  }
+
+  return new SqlUser(
+    branch['host'],
+    branch['port'],
+    data['username'],
+    data['password']
+  )
 }

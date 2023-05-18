@@ -30,8 +30,8 @@ async function run(): Promise<void> {
       repo: context.repo.repo,
       ref: context.payload.pull_request.head.sha,
 
-      timeoutSeconds: parseInt(core.getInput('timeoutSeconds')),
-      intervalSeconds: parseInt(core.getInput('intervalSeconds'))
+      timeoutSeconds: parseInt(core.getInput('timeout-seconds')),
+      intervalSeconds: parseInt(core.getInput('interval-seconds'))
     })
 
     // check result
@@ -52,7 +52,7 @@ async function run(): Promise<void> {
       privateKey,
       core.getInput('env')
     )
-    if (core.getInput('addMask') === 'true') {
+    if (core.getInput('add-mask') === 'true') {
       core.info('addMask is true, set secret for sql user password')
       core.setSecret(sqlUser.password)
     }

@@ -19,11 +19,11 @@ with:
 
 The action supports the following inputs:
 - token - (required) The GitHub token to use for making API requests. Typically, this would be set to ${{ secrets.GITHUB_TOKEN }}.
-- publicKey - (required) The public key of TiDB Cloud api. Generate it from [TiDB Cloud](https://tidbcloud.com/).
-- privateKey - (required) The private key of TiDB Cloud api. Generate it from [TiDB Cloud](https://tidbcloud.com/).
-- intervalSeconds - (optional) The interval seconds to check the status of TiDB Cloud Branch check. Default is 10.
-- timeoutSeconds - (optional) The timeout seconds to wait for TiDB Cloud Branch check. Default is 300.
-- addMask - (optional) Whether to add mask for the password output. Default is true.
+- public-key - (required) The public key of TiDB Cloud api. Generate it from [TiDB Cloud](https://tidbcloud.com/).
+- private-key - (required) The private key of TiDB Cloud api. Generate it from [TiDB Cloud](https://tidbcloud.com/).
+- interval-seconds - (optional) The interval seconds to check the status of TiDB Cloud Branch check. Default is 10.
+- timeout-seconds - (optional) The timeout seconds to wait for TiDB Cloud Branch check. Default is 300.
+- add-mask - (optional) Whether to add mask for the password output. Default is true.
 
 ## Outputs
 
@@ -75,7 +75,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           public-key: ${{ secrets.TIDB_CLOUD_API_PUBLIC_KEY }}
           private-key: ${{ secrets.TIDB_CLOUD_API_PRIVATE_KEY }}
-          addMask: false
+          add-mask: false
     outputs:
       username: ${{ steps.wait-for-branch.outputs.username }}
       port : ${{ steps.wait-for-branch.outputs.port }}

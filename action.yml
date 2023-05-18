@@ -8,10 +8,10 @@ inputs:
   token:
     description: 'The GitHub token to use for making API requests.'
     required: true
-  timeoutSeconds:
+  timeout-seconds:
     description: 'The number of seconds to wait for the branch ready.'
     default: '300'
-  intervalSeconds:
+  interval-seconds:
     description: 'The number of seconds to wait before each check.'
     default: '10'
   public-key:
@@ -20,7 +20,7 @@ inputs:
   private-key:
     description: 'The private key of TiDB Cloud API.'
     required: true
-  addMask:
+  add-mask:
     description: 'Whether to add mask for the output.'
     default: 'true'
   env:

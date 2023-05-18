@@ -65,8 +65,8 @@ function run() {
                 owner: github_1.context.repo.owner,
                 repo: github_1.context.repo.repo,
                 ref: github_1.context.payload.pull_request.head.sha,
-                timeoutSeconds: parseInt(core.getInput('timeoutSeconds')),
-                intervalSeconds: parseInt(core.getInput('intervalSeconds'))
+                timeoutSeconds: parseInt(core.getInput('timeout-seconds')),
+                intervalSeconds: parseInt(core.getInput('interval-seconds'))
             });
             // check result
             if (result.conclusion === null || result.conclusion === '') {
@@ -79,7 +79,7 @@ function run() {
                 throw new Error('externalID is empty with success conclusion');
             }
             const sqlUser = yield (0, sqluser_1.sqluser)(result.externalID, msg => core.info(msg), publicKey, privateKey, core.getInput('env'));
-            if (core.getInput('addMask') === 'true') {
+            if (core.getInput('add-mask') === 'true') {
                 core.info('addMask is true, set secret for sql user password');
                 core.setSecret(sqlUser.password);
             }

@@ -65,19 +65,22 @@ export async function sqluser(
   }
 
   // get branch info
-  const branchUrl = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${branchName}`
+  const branchUrl = `${host}/api/v1beta/clusters/${clusterID}/branches/${branchID}`
   log(`request url to get host and port: ${branchUrl}`)
   const resp2 = await client.fetch(branchUrl)
   const branch = await resp2.json()
-  if (branch['host'] === undefined || branch['port'] === undefined) {
+  if (
+    branch['endpoints'] === undefined ||
+    branch['endpoints']['public_endpoint'] === undefined
+  ) {
     throw new Error(
       `Can not get branch host and port with: ${JSON.stringify(branch)}`
     )
   }
 
   return new SqlUser(
-    branch['host'],
-    branch['port'],
+    branch['endpoints']['public_endpoint']['host'],
+    branch['endpoints']['public_endpoint']['port'],
     data['username'],
     data['password']
   )

@@ -19,6 +19,7 @@ with:
 
 The action supports the following inputs:
 - token - (required) The GitHub token to use for making API requests. Typically, this would be set to ${{ secrets.GITHUB_TOKEN }}.
+- ref - (optional) The git ref of the commit you want to check. Default is `github.event.pull_request.head.sha`.
 - public-key - (required) The public key of TiDB Cloud api. Generate it from [TiDB Cloud](https://tidbcloud.com/).
 - private-key - (required) The private key of TiDB Cloud api. Generate it from [TiDB Cloud](https://tidbcloud.com/).
 - interval-seconds - (optional) The interval seconds to check the status of TiDB Cloud Branch check. Default is 10.

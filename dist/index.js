@@ -42,6 +42,7 @@ const sqluser_1 = __nccwpck_require__(5471);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const token = core.getInput('token', { required: true });
+        let gitRef = core.getInput('ref');
         const publicKey = core.getInput('public-key', { required: true });
         const privateKey = core.getInput('private-key', { required: true });
         // defensive programming
@@ -55,8 +56,11 @@ function run() {
             throw new Error('privateKey is empty');
         }
         try {
-            if (github_1.context.payload.pull_request === undefined) {
-                throw new Error('This action only works on pull_request events now');
+            if (gitRef === '' || gitRef === undefined) {
+                if (github_1.context.payload.pull_request === undefined) {
+                    throw new Error('This action only works on pull_request events if you do not specify ref');
+                }
+                gitRef = github_1.context.payload.pull_request.head.sha;
             }
             const result = yield (0, poll_1.poll)({
                 client: (0, github_1.getOctokit)(token),
@@ -64,7 +68,7 @@ function run() {
                 checkName: 'TiDB Cloud Branch',
                 owner: github_1.context.repo.owner,
                 repo: github_1.context.repo.repo,
-                ref: github_1.context.payload.pull_request.head.sha,
+                ref: gitRef,
                 timeoutSeconds: parseInt(core.getInput('timeout-seconds')),
                 intervalSeconds: parseInt(core.getInput('interval-seconds'))
             });

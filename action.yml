@@ -8,6 +8,8 @@ inputs:
   token:
     description: 'The GitHub token to use for making API requests.'
     required: true
+  ref:
+    description: 'The git ref of the commit you want to check.'
   timeout-seconds:
     description: 'The number of seconds to wait for the branch ready.'
     default: '300'

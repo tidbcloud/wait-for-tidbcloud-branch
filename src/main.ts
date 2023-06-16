@@ -5,6 +5,7 @@ import {sqluser} from './sqluser'
 
 async function run(): Promise<void> {
   const token = core.getInput('token', {required: true})
+  let gitRef = core.getInput('ref')
   const publicKey = core.getInput('public-key', {required: true})
   const privateKey = core.getInput('private-key', {required: true})
   // defensive programming
@@ -18,8 +19,13 @@ async function run(): Promise<void> {
     throw new Error('privateKey is empty')
   }
   try {
-    if (context.payload.pull_request === undefined) {
-      throw new Error('This action only works on pull_request events now')
+    if (gitRef === '' || gitRef === undefined) {
+      if (context.payload.pull_request === undefined) {
+        throw new Error(
+          'This action only works on pull_request events if you do not specify ref'
+        )
+      }
+      gitRef = context.payload.pull_request.head.sha
     }
     const result = await poll({
       client: getOctokit(token),
@@ -28,7 +34,7 @@ async function run(): Promise<void> {
       checkName: 'TiDB Cloud Branch',
       owner: context.repo.owner,
       repo: context.repo.repo,
-      ref: context.payload.pull_request.head.sha,
+      ref: gitRef,
 
       timeoutSeconds: parseInt(core.getInput('timeout-seconds')),
       intervalSeconds: parseInt(core.getInput('interval-seconds'))

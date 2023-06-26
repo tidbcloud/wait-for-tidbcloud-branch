@@ -31,7 +31,7 @@ async function run(): Promise<void> {
       client: getOctokit(token),
       log: msg => core.info(msg),
 
-      checkName: 'TiDB Cloud Branch',
+      checkName: 'TiDB Cloud Branching',
       owner: context.repo.owner,
       repo: context.repo.repo,
       ref: gitRef,

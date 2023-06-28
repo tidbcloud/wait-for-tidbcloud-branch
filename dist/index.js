@@ -65,7 +65,7 @@ function run() {
             const result = yield (0, poll_1.poll)({
                 client: (0, github_1.getOctokit)(token),
                 log: msg => core.info(msg),
-                checkName: 'TiDB Cloud Branch',
+                checkName: 'TiDB Cloud Branching',
                 owner: github_1.context.repo.owner,
                 repo: github_1.context.repo.repo,
                 ref: gitRef,

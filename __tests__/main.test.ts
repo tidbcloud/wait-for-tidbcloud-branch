@@ -18,7 +18,7 @@ test('wait 500 ms', async () => {
 
 // replace the externalId, public key and private key with your own
 test('sqluser', async () => {
-  const externalId = "{\"project_id\":\"163469\",\"cluster_id\":\"2939253\",\"branch_id\":\"branch-t393ywvw3qhswh7getjzwv\",\"branch_name\":\"syh-test2\"}"
+  const externalId = "{\"project_id\":\"163469\",\"cluster_id\":\"3478958\",\"branch_id\":\"bran-pbc3jwxonzhcrmbhqxicopyojq\",\"branch_name\":\"hello/syh\"}"
   const sqlUser = await sqluser( externalId,
       msg => core.info(msg),
       "",

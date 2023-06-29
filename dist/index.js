@@ -209,8 +209,9 @@ function sqluser(externalID, log, publicKey, privateKey, env) {
             host = 'https://api.staging.tidbcloud.com';
         }
         const client = new digest_fetch_1.default(publicKey, privateKey);
+        const escapeBranchName = encodeURIComponent(branchName);
         // get sql user
-        const sqlUserUrl = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${branchName}/users`;
+        const sqlUserUrl = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${escapeBranchName}/users`;
         log(`request url to get sql user: ${sqlUserUrl}`);
         const resp = yield client.fetch(sqlUserUrl, { method: 'POST' });
         const data = yield resp.json();

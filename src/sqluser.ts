@@ -57,7 +57,7 @@ export async function sqluser(
 
   // get sql user
   const sqlUserUrl = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${escapeBranchName}/users`
-  log(`request url to get sql user: ${sqlUserUrl}`)
+  log(`request url to get db user: ${sqlUserUrl}`)
   const resp = await client.fetch(sqlUserUrl, {method: 'POST'})
   const data = await resp.json()
   if (data['username'] === undefined || data['password'] === undefined) {

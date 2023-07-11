@@ -1,7 +1,7 @@
 import {wait} from '../src/wait'
 import {expect, test} from '@jest/globals'
-import {sqluser} from "../src/sqluser";
-import * as core from "@actions/core";
+import {sqluser} from '../src/sqluser';
+import * as core from '@actions/core';
 
 test('throws invalid number', async () => {
   const input = parseInt('foo', 10)
@@ -25,4 +25,4 @@ test.skip('sqluser', async () => {
       "",
      "dev")
   console.log(sqlUser)
-},20000)
+}, 20000)

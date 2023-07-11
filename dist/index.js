@@ -87,7 +87,7 @@ function run() {
                 core.info('addMask is true, set secret for sql user password');
                 core.setSecret(sqlUser.password);
             }
-            core.info(`Got sql user. host: ${sqlUser.host}, username: ${sqlUser.username}, password: ${sqlUser.password}`);
+            core.info(`Got db user. host: ${sqlUser.host}, username: ${sqlUser.username}, port: ${sqlUser.port}`);
             core.setOutput('host', sqlUser.host);
             core.setOutput('username', sqlUser.username);
             core.setOutput('password', sqlUser.password);
@@ -212,7 +212,7 @@ function sqluser(externalID, log, publicKey, privateKey, env) {
         const escapeBranchName = encodeURIComponent(branchName);
         // get sql user
         const sqlUserUrl = `${host}/api/internal/projects/${projectID}/clusters/${clusterID}/branches/${escapeBranchName}/users`;
-        log(`request url to get sql user: ${sqlUserUrl}`);
+        log(`request url to get db user: ${sqlUserUrl}`);
         const resp = yield client.fetch(sqlUserUrl, { method: 'POST' });
         const data = yield resp.json();
         if (data['username'] === undefined || data['password'] === undefined) {

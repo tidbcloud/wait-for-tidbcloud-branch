@@ -18,7 +18,7 @@ with:
 ## Inputs
 
 The action supports the following inputs:
-- token - (required) The GitHub token to use for making API requests. Typically, this would be set to ${{ secrets.GITHUB_TOKEN }}.
+- token - (required) The GitHub token to use for making API requests. Typically, this would be set to ${{ secrets.GITHUB_TOKEN }}. You needn't set [GITHUB_TOKEN](https://docs.github.com/en/actions/security-guides/automatic-token-authentication), GitHub will automatically creates the secret.
 - ref - (optional) The git ref of the commit you want to check. Default is `github.event.pull_request.head.sha`.
 - public-key - (required) The public key of TiDB Cloud api. Generate it from [TiDB Cloud](https://tidbcloud.com/).
 - private-key - (required) The private key of TiDB Cloud api. Generate it from [TiDB Cloud](https://tidbcloud.com/).
